@@ -1,10 +1,11 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { SearchFilters, PropertyType, Amenity, DateRange } from './types';
+import { SearchFilters, PropertyType, Amenity } from './types';
+import { DateRange } from 'react-day-picker';
 
 interface FilterState {
   location: string;
-  dateRange: DateRange;
+  dateRange: DateRange | undefined;
   guests: {
     adults: number;
     children: number;
@@ -20,7 +21,7 @@ interface FilterState {
   instantBook: boolean;
   superhost: boolean;
   setLocation: (location: string) => void;
-  setDateRange: (dateRange: DateRange) => void;
+  setDateRange: (dateRange: DateRange | undefined) => void;
   setGuests: (guests: { adults: number; children: number; infants: number; pets: number }) => void;
   setPriceRange: (priceRange: { min: number; max: number }) => void;
   setPropertyTypes: (propertyTypes: PropertyType[]) => void;
@@ -35,7 +36,7 @@ interface FilterState {
 
 const initialState = {
   location: '',
-  dateRange: {} as DateRange,
+  dateRange: undefined,
   guests: {
     adults: 0,
     children: 0,

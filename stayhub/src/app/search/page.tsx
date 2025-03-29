@@ -6,7 +6,7 @@ import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import PropertyGrid from '@/components/property/PropertyGrid';
 import { properties } from '@/lib/mockData';
-import { PropertyListing, SearchFilters } from '@/lib/types';
+import { PropertyListing, SearchFilters, PropertyType } from '@/lib/types';
 import { Filter, MapPin, CalendarRange, Users } from 'lucide-react';
 
 export default function SearchPage() {
@@ -49,7 +49,7 @@ export default function SearchPage() {
   }, [locationParam, checkInParam, checkOutParam, guestsParam]);
 
   // Toggle filter option
-  const toggleFilter = (type: keyof SearchFilters, value: any) => {
+  const toggleFilter = (type: keyof SearchFilters, value: PropertyType | boolean | PropertyType[]) => {
     setActiveFilters(prev => ({
       ...prev,
       [type]: prev[type] === value ? undefined : value
@@ -103,11 +103,11 @@ export default function SearchPage() {
                 <button
                   key={type}
                   className={`px-4 py-2 border rounded-lg text-sm ${
-                    activeFilters.propertyTypes?.includes(type as any) 
+                    activeFilters.propertyTypes?.includes(type as PropertyType) 
                       ? 'bg-black text-white' 
                       : 'bg-white hover:bg-gray-50'
                   }`}
-                  onClick={() => toggleFilter('propertyTypes', [type])}
+                  onClick={() => toggleFilter('propertyTypes', [type as PropertyType])}
                 >
                   {type.charAt(0).toUpperCase() + type.slice(1)}
                 </button>

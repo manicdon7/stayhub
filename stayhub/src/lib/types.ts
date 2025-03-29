@@ -10,7 +10,13 @@ export type PropertyType =
   | 'castle'
   | 'treehouse'
   | 'boat'
-  | 'camper';
+  | 'camper'
+  | 'bungalow'
+  | 'condo'
+  | 'ryokan'
+  | 'cottage'
+  | 'mansion'
+  | 'hut';
 
 export type Amenity =
   | 'wifi'
@@ -44,7 +50,8 @@ export type CategoryType =
   | 'tropical'
   | 'skiing'
   | 'mansions'
-  | 'luxury';
+  | 'luxury'
+  | 'waterfront';
 
 export interface Location {
   city: string;

@@ -7,6 +7,7 @@ import { format } from 'date-fns';
 import { Calendar as CalendarIcon, Search, MapPin, Users } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
+import { DateRange } from 'react-day-picker';
 import {
   Popover,
   PopoverContent,
@@ -15,14 +16,13 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Input } from '@/components/ui/input';
 import { useFilterStore } from '@/lib/store';
-import { DateRange } from '@/lib/types';
 import { cn } from '@/lib/utils';
 
 const SearchBar = () => {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState<string>('location');
   const [location, setLocation] = useState<string>('');
-  const [dateRange, setDateRange] = useState<DateRange>({});
+  const [dateRange, setDateRange] = useState<DateRange | undefined>();
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   const [isGuestSelectorOpen, setIsGuestSelectorOpen] = useState(false);
 
@@ -117,7 +117,7 @@ const SearchBar = () => {
             >
               <span className="text-sm font-medium">When</span>
               <span className="text-sm text-gray-500">
-                {dateRange.from && dateRange.to
+                {dateRange?.from && dateRange?.to
                   ? `${format(dateRange.from, 'MMM d')} - ${format(dateRange.to, 'MMM d')}`
                   : 'Add dates'}
               </span>
@@ -197,18 +197,14 @@ const SearchBar = () => {
                     variant="outline"
                     className={cn(
                       "w-full justify-start text-left font-normal",
-                      !dateRange.from && "text-muted-foreground"
+                      !dateRange?.from && "text-muted-foreground"
                     )}
                   >
                     <CalendarIcon className="mr-2 h-4 w-4" />
-                    {dateRange.from ? (
-                      dateRange.to ? (
-                        <>
-                          {format(dateRange.from, "LLL dd, y")} - {format(dateRange.to, "LLL dd, y")}
-                        </>
-                      ) : (
-                        format(dateRange.from, "LLL dd, y")
-                      )
+                    {dateRange?.from && dateRange?.to ? (
+                      <>
+                        {format(dateRange.from, "LLL dd, y")} - {format(dateRange.to, "LLL dd, y")}
+                      </>
                     ) : (
                       <span>Select your dates</span>
                     )}
@@ -218,11 +214,11 @@ const SearchBar = () => {
                   <Calendar
                     initialFocus
                     mode="range"
-                    defaultMonth={dateRange.from}
-                    selected={dateRange as any}
-                    onSelect={(range: any) => {
+                    defaultMonth={dateRange?.from}
+                    selected={dateRange}
+                    onSelect={(range) => {
                       setDateRange(range);
-                      if (range.to) {
+                      if (range?.to) {
                         setActiveTab('guests');
                       }
                     }}
