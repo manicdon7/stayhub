@@ -2,7 +2,7 @@
 
 StayHub is a modern, responsive web application that replicates the core functionality of Airbnb. Built with Next.js 14, React, TypeScript, and Tailwind CSS, it offers a seamless user experience for browsing, booking, and managing property listings.
 
-![StayHub Screenshot](https://i.imgur.com/YourScreenshotHere.png)
+![StayHub Screenshot](https://res.cloudinary.com/dvgpzftnf/image/upload/v1743245295/Screenshot_2025-03-29_161705_icvmzt.png)
 
 ## Features
 
