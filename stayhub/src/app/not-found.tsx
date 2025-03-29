@@ -13,13 +13,10 @@ export default function NotFound() {
       <Header />
       <main className="container mx-auto px-4 py-12 min-h-[calc(100vh-180px)] flex items-center justify-center">
         <div className="max-w-2xl w-full text-center">
-          <div className="mb-8 relative h-64 w-64 mx-auto">
-            <Image
-              src="https://imgs.search.brave.com/vIblpfDlSQOCcmb-crcHbx310HGpVzodkXbPybw-py0/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMTA5/NTA0NzQ3Mi92ZWN0/b3IvZXJyb3ItcGFn/ZS1kZWFkLWVtb2pp/LWlsbHVzdHJhdGlv/bi5qcGc_cz02MTJ4/NjEyJnc9MCZrPTIw/JmM9bUVBRXJBNTcy/Vi0tdFlYdkdZYU5j/Y2xBMTdib0ZZOFM4/VXdJZ09nQ1plaz0"
-              alt="Page not found"
-              fill
-              className="object-contain"
-            />
+          <div className="mb-8 flex justify-center">
+            <div className="h-64 w-64 flex items-center justify-center text-8xl">
+              🔍
+            </div>
           </div>
           
           <h1 className="text-4xl font-bold mb-4">Oops! Page not found</h1>
