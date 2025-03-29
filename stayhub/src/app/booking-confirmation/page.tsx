@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -10,7 +10,7 @@ import { properties } from '@/lib/mockData';
 import { PropertyListing } from '@/lib/types';
 import { CheckCircle, Copy, Calendar, Users, Home, ChevronRight } from 'lucide-react';
 
-export default function BookingConfirmationPage() {
+function BookingConfirmationContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const propertyId = searchParams.get('propertyId');
@@ -230,5 +230,41 @@ export default function BookingConfirmationPage() {
       </main>
       <Footer />
     </>
+  );
+}
+
+// Loading fallback component
+function BookingConfirmationLoading() {
+  return (
+    <>
+      <Header />
+      <div className="container mx-auto px-4 py-12 min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold mb-4">Loading booking details...</h1>
+          <div className="animate-pulse flex space-x-4 justify-center">
+            <div className="rounded-full bg-slate-200 h-10 w-10"></div>
+            <div className="flex-1 space-y-6 py-1 max-w-md">
+              <div className="h-2 bg-slate-200 rounded"></div>
+              <div className="space-y-3">
+                <div className="grid grid-cols-3 gap-4">
+                  <div className="h-2 bg-slate-200 rounded col-span-2"></div>
+                  <div className="h-2 bg-slate-200 rounded col-span-1"></div>
+                </div>
+                <div className="h-2 bg-slate-200 rounded"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <Footer />
+    </>
+  );
+}
+
+export default function BookingConfirmationPage() {
+  return (
+    <Suspense fallback={<BookingConfirmationLoading />}>
+      <BookingConfirmationContent />
+    </Suspense>
   );
 } 

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
@@ -9,7 +9,7 @@ import { properties } from '@/lib/mockData';
 import { PropertyListing, SearchFilters, PropertyType } from '@/lib/types';
 import { Filter, MapPin, CalendarRange, Users } from 'lucide-react';
 
-export default function SearchPage() {
+function SearchContent() {
   const searchParams = useSearchParams();
   const [filteredProperties, setFilteredProperties] = useState<PropertyListing[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -225,5 +225,39 @@ export default function SearchPage() {
       </main>
       <Footer />
     </>
+  );
+}
+
+// Loading fallback component
+function SearchLoading() {
+  return (
+    <>
+      <Header />
+      <div className="container mx-auto px-4 py-8">
+        <div className="mb-6">
+          <div className="h-8 bg-gray-200 rounded w-64 mb-2"></div>
+          <div className="h-4 bg-gray-200 rounded w-48"></div>
+        </div>
+        
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
+            <div key={i} className="animate-pulse">
+              <div className="bg-gray-200 rounded-lg aspect-square mb-2"></div>
+              <div className="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
+              <div className="h-4 bg-gray-200 rounded w-1/2"></div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <Footer />
+    </>
+  );
+}
+
+export default function SearchPage() {
+  return (
+    <Suspense fallback={<SearchLoading />}>
+      <SearchContent />
+    </Suspense>
   );
 } 
